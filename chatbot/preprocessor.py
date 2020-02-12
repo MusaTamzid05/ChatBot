@@ -2,9 +2,10 @@ import nltk
 
 class Preprocessor:
 
-    def __init__(self , intents):
+    def __init__(self , intents , verbose = False):
 
         self.intents = intents
+        self.verbose = verbose
         self.words = []
         self.classes = []
         self.documents = []
@@ -20,10 +21,10 @@ class Preprocessor:
                 if intent["tag"] not in self.classes:
                     self.classes.append(intent["tag"])
 
-
-        print(self.words)
-        print(self.documents)
-        print(self.classes)
+        if self.verbose:
+            print("Words : {}".format(self.words))
+            print("Documents : {}".format(self.documents))
+            print("Clasess: {}".format(self.classes))
 
     def process(self):
         self._load_data()
