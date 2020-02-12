@@ -13,7 +13,7 @@ class Chatbot:
 
     def train(self , save_path):
         preprocessor = Preprocessor(self.intents)
-        preprocessor.run()
+        preprocessor.run(save_path)
 
     def load_train_model(self , path):
         pass
