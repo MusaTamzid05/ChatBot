@@ -1,10 +1,10 @@
 import json
+from chatbot.preprocessor import Preprocessor
 
 class Chatbot:
 
     def __init__(self , intents_path):
         self._load_intents_from(intents_path)
-        print(self.intents)
         self.train_model_loaded = False
 
     def _load_intents_from(self , path):
@@ -12,7 +12,8 @@ class Chatbot:
         self.intents = json.loads(data_file)
 
     def train(self , save_path):
-        pass
+        preprocessor = Preprocessor(self.intents)
+        preprocessor.process()
 
     def load_train_model(self , path):
         pass
