@@ -1,5 +1,6 @@
 import json
 from chatbot.preprocessor import Preprocessor
+from chatbot.trainer import Trainer
 
 class Chatbot:
 
@@ -14,6 +15,8 @@ class Chatbot:
     def train(self , save_path):
         preprocessor = Preprocessor(self.intents)
         preprocessor.run(save_path)
+
+        trainer = Trainer(preprocessor.words , preprocessor.classes , preprocessor.documents)
 
     def load_train_model(self , path):
         pass

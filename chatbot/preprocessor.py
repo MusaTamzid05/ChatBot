@@ -58,6 +58,8 @@ class Preprocessor:
         pickle.dump(self.classes, open(os.path.join(save_path , "classes.pkl" ) , "wb"))
         pickle.dump(self.documents, open(os.path.join(save_path , "documents.pkl" ) , "wb"))
 
+        return self.words , self.classes , self.documents
+
 
 
 
