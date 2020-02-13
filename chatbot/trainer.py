@@ -8,6 +8,9 @@ from keras.layers import Dense
 from keras.layers import Dropout
 from keras.optimizers import SGD
 
+import os
+from matplotlib import pyplot as plt
+
 
 class Trainer:
 
@@ -54,14 +57,33 @@ class Trainer:
         sgd = SGD(lr = learning_date , decay = 1e-6 , momentum = 0.9 , nesterov = True)
         model.compile(loss = "categorical_crossentropy" , optimizer = sgd , metrics = ["accuracy"])
 
-        model.summary()
+        self.model = model
+        self.model.summary()
 
 
-    def train(self , epochs = 200 , batch_size = 5 , learning_date = 0.01):
+    def train(self , save_path ,  epochs = 200 , batch_size = 5 , learning_date = 0.01):
         self._init_model(learning_date)
 
+        history = self.model.fit(np.array(self.train_x) , np.array(self.train_y) ,
+                                epochs = epochs ,
+                                batch_size = batch_size ,
+                                verbose = 1)
+
+        path = os.path.join(save_path , "model.h5")
+        self.model.save(path)
+        print("Model saved in {}".format(path))
+        self.visualize(history.history)
 
 
+    def visualize(self , history):
 
+        acc = history["acc"]
+        loss = history["loss"]
+        epochs = range(1 , len(acc) + 1)
+
+        plt.plot(epochs , acc , "bo" , label = "Trainning acc")
+        plt.plot(epochs , loss , "ro" , label = "Trainning loss ")
+        plt.legend()
+        plt.show()
 
 
