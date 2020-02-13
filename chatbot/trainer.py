@@ -72,6 +72,7 @@ class Trainer:
         path = os.path.join(save_path , "model.h5")
         self.model.save(path)
         print("Model saved in {}".format(path))
+        self.train_model_loaded = True
         self.visualize(history.history)
 
 
