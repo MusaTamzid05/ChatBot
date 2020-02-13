@@ -1,6 +1,7 @@
 import json
 from chatbot.preprocessor import Preprocessor
 from chatbot.trainer import Trainer
+from chatbot.predictor import Predictor
 
 class Chatbot:
 
@@ -20,7 +21,10 @@ class Chatbot:
         trainer.train(save_path)
 
     def load_train_model(self , path):
-        pass
+
+        self.predictor = Predictor(self.intents , path)
+        self.train_model_loaded = True
+
 
 
     def response(self , sentence):
@@ -28,3 +32,5 @@ class Chatbot:
         if self.train_model_loaded == False:
             print["[-] Please load the train model by calling load_train_model or train from scratch by calling train first"]
             return
+
+        return self.predictor.get_response_to(sentence)
