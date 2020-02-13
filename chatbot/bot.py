@@ -17,6 +17,7 @@ class Chatbot:
         preprocessor.run(save_path)
 
         trainer = Trainer(preprocessor.words , preprocessor.classes , preprocessor.documents)
+        trainer.train()
 
     def load_train_model(self , path):
         pass

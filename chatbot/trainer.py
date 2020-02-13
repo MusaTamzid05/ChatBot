@@ -3,6 +3,12 @@ import random
 import numpy as np
 
 
+from keras.models import Sequential
+from keras.layers import Dense
+from keras.layers import Dropout
+from keras.optimizers import SGD
+
+
 class Trainer:
 
     def __init__(self , words , classes , documents):
@@ -37,6 +43,22 @@ class Trainer:
 
         print("[*] Training data created")
 
+    def _init_model(self , learning_date):
+
+        model = Sequential()
+        model.add(Dense(128 , input_shape = (len(self.train_x[0]) , ) , activation = "relu"))
+        model.add(Dropout(0.5))
+        model.add(Dense(64,  activation = "relu"))
+        model.add(Dropout(0.5))
+        model.add(Dense(len(self.train_y[0]) , activation = "softmax"))
+        sgd = SGD(lr = learning_date , decay = 1e-6 , momentum = 0.9 , nesterov = True)
+        model.compile(loss = "categorical_crossentropy" , optimizer = sgd , metrics = ["accuracy"])
+
+        model.summary()
+
+
+    def train(self , epochs = 200 , batch_size = 5 , learning_date = 0.01):
+        self._init_model(learning_date)
 
 
 
